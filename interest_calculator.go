@@ -19,27 +19,9 @@ func main() {
 
 	display_instructions(MONTHLY_RATE)
 
-	fmt.Println("\nEnter the number of days late: ")
-
-	scanner := bufio.NewScanner(os.Stdin)
-	scanner.Scan()
-	days_late, _ := strconv.ParseFloat(scanner.Text(), 64)
-
-	if scanner.Err() != nil {
-		fmt.Println("There was an error")
-	}
-
-	fmt.Println("\nEnter the invoice amount: ")
-
-	amount_scanner := bufio.NewScanner(os.Stdin)
-	amount_scanner.Scan()
-	invoice_amount, _ := strconv.ParseFloat(amount_scanner.Text(), 64)
-
-	yearly_rate := MONTHLY_RATE * 12.0
-	yearly_multiplier := yearly_rate / 100.0
-	year_portion := days_late / 365.0
-	partial_rate := year_portion * yearly_multiplier
-	interest_amount := invoice_amount * partial_rate
+	days_late := get_numeric_input_at_prompt("Enter the number of days late:")
+	invoice_amount := get_numeric_input_at_prompt("Enter the number of days late:")
+	interest_amount := calculate_interest(days_late, invoice_amount, MONTHLY_RATE)
 
 	fmt.Println("Interest Owed:", interest_amount)
 }
@@ -47,4 +29,30 @@ func main() {
 func display_instructions(monthly_rate float64) {
 	fmt.Println("Calculate interest on a late invoice.")
 	fmt.Println("This assumes", monthly_rate, "monthly interest.")
+}
+
+func get_numeric_input_at_prompt(prompt string) float64 {
+	fmt.Println(prompt)
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Scan()
+
+	captured_value, _ := strconv.ParseFloat(scanner.Text(), 64)
+
+	if scanner.Err() != nil {
+		fmt.Println("There was an error")
+	}
+
+	return captured_value
+}
+
+func calculate_interest(days_late float64, invoice_amount float64, monthly_rate float64) float64 {
+	const MONTHS_IN_A_YEAR float64 = 12.0
+	const DAYS_IN_A_YEAR float64 = 365.0
+
+	yearly_rate := monthly_rate * MONTHS_IN_A_YEAR
+	yearly_multiplier := yearly_rate / 100.0
+	year_portion := days_late / DAYS_IN_A_YEAR
+	partial_rate := year_portion * yearly_multiplier
+
+	return invoice_amount * partial_rate
 }
