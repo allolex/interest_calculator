@@ -1,10 +1,3 @@
-//
-// intcal.go
-// Copyright (C) 2020 damon <damon@asheville>
-//
-// Distributed under terms of the MIT license.
-//
-
 package main
 
 import (
