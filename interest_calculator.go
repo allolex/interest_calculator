@@ -23,7 +23,7 @@ func main() {
 	invoice_amount := get_numeric_input_at_prompt("Enter the number of days late:")
 	interest_amount := calculate_interest(days_late, invoice_amount, MONTHLY_RATE)
 
-	fmt.Println("Interest Owed:", interest_amount)
+	fmt.Println("Interest Owed:", fmt.Sprintf("%.2f", interest_amount))
 }
 
 func display_instructions(monthly_rate float64) {
