@@ -17,8 +17,7 @@ import (
 func main() {
 	const MONTHLY_RATE float64 = 1.5
 
-	fmt.Println("Calculate interest on a late invoice.")
-	fmt.Println("This assumes", MONTHLY_RATE, "monthly interest.")
+	display_instructions(MONTHLY_RATE)
 
 	fmt.Println("\nEnter the number of days late: ")
 
@@ -43,4 +42,9 @@ func main() {
 	interest_amount := invoice_amount * partial_rate
 
 	fmt.Println("Interest Owed:", interest_amount)
+}
+
+func display_instructions(monthly_rate float64) {
+	fmt.Println("Calculate interest on a late invoice.")
+	fmt.Println("This assumes", monthly_rate, "monthly interest.")
 }
